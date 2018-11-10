@@ -22,6 +22,11 @@ class HomeScreen extends React.Component {
   clearText() {
     this.setState({ text: '' });
   }
+
+  bannerError() {
+    console.log('Banner Error!');
+    return;
+  }
   render() {
     return (
       <View style={styles.content}>
@@ -49,16 +54,16 @@ class HomeScreen extends React.Component {
 
         <AdMobBanner
           bannerSize="banner"
-          adUnitID="ca-app-pub-5504214835843068/4326016456"
+          adUnitID="ca-app-pub-5504214835843068/1479403405"
           testDeviceID="EMULATOR"
-          // onDidFailToReceiveAdWithError={this.bannerError}
+          onDidFailToReceiveAdWithError={this.bannerError}
         />
 
         <Spinner
           animation="slide"
           visible={this.props.runSpinner}
           size="large"
-          overlayColor='rgb(114, 120, 130)'
+          overlayColor="rgb(114, 120, 130)"
           textContent={'Loading...'}
           textStyle={styles.spinnerTextStyle}
           color="#2196f3"
@@ -70,8 +75,8 @@ class HomeScreen extends React.Component {
           onTouchOutside={this.props.stopDialogs}
           dialogAnimation={
             new ScaleAnimation({
-              toValue: 0, // optional
-              useNativeDriver: true // optional
+              toValue: 0,
+              useNativeDriver: true
             })
           }
         >
@@ -86,8 +91,8 @@ class HomeScreen extends React.Component {
           onTouchOutside={this.props.stopDialogs}
           dialogAnimation={
             new ScaleAnimation({
-              toValue: 0, // optional
-              useNativeDriver: true // optional
+              toValue: 0,
+              useNativeDriver: true
             })
           }
         >
