@@ -34,13 +34,23 @@ const stopSpinner = () => {
   };
 };
 
-export const checkIfPathDown = () => {
+export const checkIfPathDown = startingLocation => {
   return async dispatch => {
     dispatch(startSpinner());
 
-    const queryString = `https://maps.googleapis.com/maps/api/directions/json?avoid=ferries&mode=transit&transit_mode=train&alternatives=true&origin=104+7th+Street+Hoboken+NJ&destination=Wall+St+New+York+City+NY&key=${
+    let locationString = '';
+    if (startingLocation.length === 0 || startingLocation === 'Enter a starting location') {
+      locationString = '104+7th+Street+Hoboken+NJ';
+    } else {
+      locationString = startingLocation.trim();
+      locationString = locationString.replace(/\s+/g, '+');
+    }
+
+    const queryString = `https://maps.googleapis.com/maps/api/directions/json?avoid=ferries&mode=transit&transit_mode=train&alternatives=true&origin=${locationString}&destination=Wall+St+New+York+City+NY&key=${
       key.googleKey
     }`;
+
+    console.log(queryString);
 
     let isPathDown = true;
     const response = await axios.get(queryString);
@@ -84,6 +94,7 @@ const reducer = (state = initialState, action) => {
 
     case STOP_SPINNER:
       return Object.assign({}, { ...state }, { runSpinner: false });
+
     case STOP_DIALOGS:
       return Object.assign(
         {},
