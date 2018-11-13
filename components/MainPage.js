@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
 
   dialogText: {
-    fontSize: 60,
+    fontSize: 35,
     fontWeight: 'bold',
     fontFamily: 'System',
     backgroundColor: '#2196f3',

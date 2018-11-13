@@ -53,7 +53,7 @@ export const checkIfPathDown = (startingLocation, destinationLocation) => {
 
     if (
       destination.length === 0 ||
-      destination === 'Enter a starting destination'
+      destination === 'Enter a destination'
     ) {
       destination = 'Wall+St+New+York+City+NY';
     } else {
