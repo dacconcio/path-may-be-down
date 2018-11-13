@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { store } from './store.js';
 import { connect, Provider } from 'react-redux';
-import MainPage from './components/MainPage.js'
+import MainPage from './components/MainPage.js';
 
 export default class App extends React.Component {
   render() {

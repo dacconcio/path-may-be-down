@@ -34,19 +34,35 @@ const stopSpinner = () => {
   };
 };
 
-export const checkIfPathDown = startingLocation => {
+export const checkIfPathDown = (startingLocation, destinationLocation) => {
   return async dispatch => {
     dispatch(startSpinner());
 
-    let locationString = '';
-    if (startingLocation.length === 0 || startingLocation === 'Enter a starting location') {
-      locationString = '104+7th+Street+Hoboken+NJ';
+
+    let start = startingLocation;
+    if (
+      start.length === 0 ||
+      start === 'Enter a starting location'
+    ) {
+      start = '104+7th+Street+Hoboken+NJ';
     } else {
-      locationString = startingLocation.trim();
-      locationString = locationString.replace(/\s+/g, '+');
+      start = start.trim();
+      start = start.replace(/\s+/g, '+');
     }
 
-    const queryString = `https://maps.googleapis.com/maps/api/directions/json?avoid=ferries&mode=transit&transit_mode=train&alternatives=true&origin=${locationString}&destination=Wall+St+New+York+City+NY&key=${
+    let destination = destinationLocation
+
+    if (
+      destination.length === 0 ||
+      destination === 'Enter a starting destination'
+    ) {
+      destination = 'Wall+St+New+York+City+NY';
+    } else {
+      destination = destination.trim();
+      destination = destination.replace(/\s+/g, '+');
+    }
+
+    const queryString = `https://maps.googleapis.com/maps/api/directions/json?avoid=ferries&mode=transit&transit_mode=train&alternatives=true&origin=${start}&destination=${destination}&key=${
       key.googleKey
     }`;
 

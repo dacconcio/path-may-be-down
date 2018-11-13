@@ -14,13 +14,19 @@ class HomeScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      text: 'Enter a starting location'
+      start: 'Enter a starting location',
+      destination: 'Enter a destination'
     };
-    this.clearText = this.clearText.bind(this);
+    this.clearStart = this.clearStart.bind(this);
+    this.clearDestination = this.clearDestination.bind(this);
   }
 
-  clearText() {
-    this.setState({ text: '' });
+  clearStart() {
+    this.setState({ start: '' });
+  }
+
+  clearDestination() {
+    this.setState({ destination: '' });
   }
 
   bannerError() {
@@ -30,34 +36,61 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.content}>
-        <TextInput
-          style={{
-            height: 40,
-            width: 320,
-            textAlign: 'center',
-            backgroundColor: 'white',
-            borderColor: 'grey',
-            borderWidth: 1
-          }}
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
-          clearTextOnFocus={true}
-          onFocus={this.clearText}
-        />
+        <View>
+          {this.props.pathDownDialog || this.props.pathOkDialog ? null : (
+            <View>
+              <TextInput
+                style={{
+                  height: 40,
+                  width: 320,
+                  textAlign: 'center',
+                  backgroundColor: 'white',
+                  borderColor: 'grey',
+                  borderWidth: 1
+                }}
+                onChangeText={start => this.setState({ start })}
+                value={this.state.start}
+                clearTextOnFocus={true}
+                onFocus={this.clearText}
+              />
+
+              <TextInput
+                style={{
+                  height: 40,
+                  width: 320,
+                  textAlign: 'center',
+                  backgroundColor: 'white',
+                  borderColor: 'grey',
+                  borderWidth: 1
+                }}
+                onChangeText={destination => this.setState({ destination })}
+                value={this.state.destination}
+                clearTextOnFocus={true}
+                onFocus={this.clearDestination}
+              />
+            </View>
+          )}
+        </View>
 
         <Button
           primary
           raised
-          onPress={() => this.props.checkIfPathDown(this.state.text)}
+          onPress={() =>
+            this.props.checkIfPathDown(this.state.start, this.state.destination)
+          }
           text="Check PATH status"
         />
 
-        <AdMobBanner
-          bannerSize="banner"
-          adUnitID="ca-app-pub-5504214835843068/1479403405"
-          testDeviceID="EMULATOR"
-          onDidFailToReceiveAdWithError={this.bannerError}
-        />
+        <View>
+          {this.props.pathDownDialog || this.props.pathOkDialog ? null : (
+            <AdMobBanner
+              bannerSize="banner"
+              adUnitID="ca-app-pub-5504214835843068/1479403405"
+              testDeviceID="EMULATOR"
+              onDidFailToReceiveAdWithError={this.bannerError}
+            />
+          )}
+        </View>
 
         <Spinner
           animation="slide"
@@ -107,8 +140,8 @@ class HomeScreen extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    checkIfPathDown: startingLocation =>
-      dispatch(checkIfPathDown(startingLocation)),
+    checkIfPathDown: (startingLocation, destination) =>
+      dispatch(checkIfPathDown(startingLocation, destination)),
     stopDialogs: () => dispatch(stopDialogs())
   };
 };
