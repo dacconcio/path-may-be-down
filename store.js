@@ -38,13 +38,12 @@ export const checkIfPathDown = (startingLocation, destinationLocation) => {
   return async dispatch => {
     dispatch(startSpinner());
 
-
     let start = startingLocation;
     if (
       start.length === 0 ||
       start === 'Enter a starting location'
     ) {
-      start = '104+7th+Street+Hoboken+NJ';
+      start = '100+7th+Street+Hoboken+NJ';
     } else {
       start = start.trim();
       start = start.replace(/\s+/g, '+');

@@ -17,16 +17,6 @@ class HomeScreen extends React.Component {
       start: 'Enter a starting location',
       destination: 'Enter a destination'
     };
-    this.clearStart = this.clearStart.bind(this);
-    this.clearDestination = this.clearDestination.bind(this);
-  }
-
-  clearStart() {
-    this.setState({ start: '' });
-  }
-
-  clearDestination() {
-    this.setState({ destination: '' });
   }
 
   bannerError() {
@@ -51,7 +41,6 @@ class HomeScreen extends React.Component {
                 onChangeText={start => this.setState({ start })}
                 value={this.state.start}
                 clearTextOnFocus={true}
-                onFocus={this.clearText}
               />
 
               <TextInput
@@ -66,7 +55,6 @@ class HomeScreen extends React.Component {
                 onChangeText={destination => this.setState({ destination })}
                 value={this.state.destination}
                 clearTextOnFocus={true}
-                onFocus={this.clearDestination}
               />
             </View>
           )}
